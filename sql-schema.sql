@@ -5,9 +5,6 @@
 -- in application code (Node crypto.randomUUID()) and passed in as strings.
 -- CHAR(36) stores the standard UUID string format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
-CREATE DATABASE expensetracker;
-USE expensetracker;
- 
 CREATE TABLE user (
   id              CHAR(36)      PRIMARY KEY,
   email           VARCHAR(255)  NOT NULL UNIQUE,
