@@ -21,7 +21,7 @@ export const createGroup = async (req, res) => {
             joinCode = crypto.randomBytes(4).toString('hex').toUpperCase().slice(0, 8);
             try {
                 const createGroupQuery = `
-                    INSERT INTO \`group\` (id, name, created_by, join_code)
+                    INSERT INTO user_group (id, name, created_by, join_code)
                     VALUES (?, ?, ?, ?)
                 `;
 
@@ -48,7 +48,7 @@ export const createGroup = async (req, res) => {
             SELECT 
                 id, name, created_by, join_code, created_at
             FROM 
-                \`group\`
+                user_group
             WHERE
                 id = ?
         `;
@@ -81,7 +81,7 @@ export const getGroups = async (req, res) => {
         FROM 
             group_member gm
         JOIN 
-            \`group\` g 
+            user_group g 
                 ON g.id = gm.group_id
         WHERE
             gm.user_id = ?

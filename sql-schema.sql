@@ -17,7 +17,7 @@ CREATE TABLE user (
   created_at      TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
  
-CREATE TABLE `group` (
+CREATE TABLE user_group (
   id          CHAR(36)      PRIMARY KEY,
   name        VARCHAR(150)  NOT NULL,
   created_by  CHAR(36)      NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE group_member (
   role       VARCHAR(20)  NOT NULL DEFAULT 'member',
   joined_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (group_id, user_id),
-  FOREIGN KEY (group_id) REFERENCES `group`(id) ON DELETE CASCADE,
+  FOREIGN KEY (group_id) REFERENCES user_group(id) ON DELETE CASCADE,
   FOREIGN KEY (user_id)  REFERENCES user(id)    ON DELETE CASCADE,
   CONSTRAINT chk_role CHECK (role IN ('leader', 'member'))
 );
@@ -48,7 +48,7 @@ INSERT INTO user (id, email, password_hash, first_name, last_name) VALUES
    '$2b$10$BVUk1Ryj3DVb6p7m3Zev5.t7n4cGLB5taL2bDBAYNLKxpvJv/IHRa', 'Bob', 'Lee');
  
 -- one pre-existing group with Alice as leader, so GET /groups has data to return
-INSERT INTO `group` (id, name, created_by, join_code) VALUES
+INSERT INTO user_group (id, name, created_by, join_code) VALUES
   ('33333333-3333-3333-3333-333333333333', 'Roommates',
    '11111111-1111-1111-1111-111111111111', 'AB3X9K2P');
  
